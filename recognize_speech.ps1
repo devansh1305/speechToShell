@@ -11,11 +11,11 @@ $script:SpeechModuleMacros = @{}
 ## Add a way to turn it off
 $script:SpeechModuleMacros.Add("Stop Listening", {$script:listen = $false; Suspend-Listening})
 $script:SpeechModuleComputerName = ${env:ComputerName}
-<#
+
 function Update-SpeechCommands {
-    #.#Synopsis 
+    .Synopsis 
     #  Recreate the speech recognition grammar
-    #.#Description
+    .Description
     #  This parses out the speech module macros, 
     #  and recreates the speech recognition grammar and semantic results, 
     #  and then updates the SpeechRecognizer with the new grammar, 
@@ -47,9 +47,9 @@ function Update-SpeechCommands {
 }
 
 function Add-SpeechCommands {
-    #.#Synopsis
+    .Synopsis
     #  Add one or more commands to the speech-recognition macros, and update the recognition
-    #.#Parameter CommandText
+    .Parameter CommandText
     #  The string key for the command to remove
     [CmdletBinding()]
     Param([hashtable]$VoiceMacros,[string]$Computer=$Script:SpeechModuleComputerName)
@@ -62,9 +62,9 @@ function Add-SpeechCommands {
 }
 
 function Remove-SpeechCommands {
-    #.#Synopsis
+    .Synopsis
     #  Remove one or more command from the speech-recognition macros, and update the recognition
-    #.#Parameter CommandText
+    .Parameter CommandText
     #  The string key for the command to remove
     Param([string[]]$CommandText)
     foreach ($command in $CommandText) {
@@ -74,9 +74,9 @@ function Remove-SpeechCommands {
 }
 
 function Clear-SpeechCommands {
-    #.#Synopsis
+    .Synopsis
     #  Removes all commands from the speech-recognition macros, and update the recognition
-    #.#Parameter CommandText
+    .Parameter CommandText
     #  The string key for the command to remove
     $script:SpeechModuleMacros = @{}
     ## Default value: A way to turn it off
@@ -85,7 +85,7 @@ function Clear-SpeechCommands {
 }
 
 function Start-Listening {
-    #.#Synopsis
+    .Synopsis
     #  Sets the SpeechRecognizer to Enabled
     $global:SpeechModuleListener.Enabled = $true
     Say "Speech Macros are $($Global:SpeechModuleListener.State)"
@@ -93,7 +93,7 @@ function Start-Listening {
 }
 
 function Suspend-Listening {
-    #.#Synopsis
+    .Synopsis
     #  Sets the SpeechRecognizer to Disabled
     $global:SpeechModuleListener.Enabled = $false
     Say "Speech Macros are disabled"
@@ -101,11 +101,11 @@ function Suspend-Listening {
 }
 
 function Out-Speech {
-    #.#Synopsis
+    .Synopsis
     #  Speaks the input object
-    #.#Description
+    .Description
     #  Uses the default SpeechSynthesizer settings to speak the string representation of the InputObject
-    #.#Parameter InputObject
+    .Parameter InputObject
     #  The object to speak 
     #  NOTE: this should almost always be a pre-formatted string,
     #        most objects don't render to very speakable text.
@@ -114,7 +114,7 @@ function Out-Speech {
 }
 
 function Remove-SpeechXP {
-    #.Synopis
+    .Synopis
     #  Dispose of the SpeechModuleListener and SpeechModuleSpeaker
     $global:SpeechModuleListener.Dispose(); $global:SpeechModuleListener = $null
     $global:SpeechModuleSpeaker.Dispose();  $global:SpeechModuleSpeaker = $null
@@ -126,4 +126,3 @@ Set-Alias csc Clear-SpeechCommands
 Set-Alias say Out-Speech
 Set-Alias listen Start-Listener
 Export-ModuleMember -Function * -Alias * -VariableSpeechModuleListener, SpeechModuleSpeaker
-#>
